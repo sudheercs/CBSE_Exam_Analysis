@@ -19,9 +19,10 @@ streamlit run app.py
 Open the local URL printed by Streamlit, then upload a `.TXT` Gazette file in
 the sidebar.
 
-For a safe sample, upload [`demo_data.txt`](./demo_data.txt). It contains only
-invented demonstration names, roll numbers, school details, and marks; it has
-no source-result details.
+For a safe sample, upload [`demo_data.txt`](./demo_data.txt). It contains 200
+synthetic candidates across eight subjects, with pass, compartment, and
+withheld-result examples. All names, roll numbers, and marks are fictional;
+there are no real school or student records.
 
 Question answering supports candidate names or roll numbers, subject averages,
 highest/lowest subjects, subject grade counts and pass rates, overall grade
