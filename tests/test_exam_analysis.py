@@ -63,11 +63,21 @@ class ExamAnalysisTests(unittest.TestCase):
         text = demo_path.read_text(encoding="utf-8")
         report = parse_cbse_gazette(text)
 
-        self.assertEqual(report.school_name, "DEMONSTRATION ACADEMY")
+        self.assertEqual(report.school_name, "SYNTHETIC DATA ONLY")
         self.assertEqual(report.region, "DEMO-REGION")
-        self.assertEqual(len(report.students), 6)
-        self.assertTrue(all(student.roll_no.startswith("900000") for student in report.students))
+        self.assertEqual(len(report.students), 200)
+        self.assertEqual(len({student.roll_no for student in report.students}), 200)
+        self.assertTrue(
+            all(90000001 <= int(student.roll_no) <= 90000200 for student in report.students)
+        )
         self.assertTrue(all(student.name.startswith("DEMO CANDIDATE ") for student in report.students))
+        self.assertGreaterEqual(len(report.subject_codes), 8)
+        self.assertGreater(len({tuple(student.subject_codes) for student in report.students}), 1)
+        self.assertTrue(any(student.result == "COMP" for student in report.students))
+        self.assertTrue(any(student.result == "R.L." for student in report.students))
+        self.assertTrue(
+            any(grade == "E" for student in report.students for grade in student.grades.values())
+        )
 
 
 if __name__ == "__main__":
