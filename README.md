@@ -19,6 +19,10 @@ streamlit run app.py
 Open the local URL printed by Streamlit, then upload a `.TXT` Gazette file in
 the sidebar.
 
+For a safe sample, upload [`demo_data.txt`](./demo_data.txt). It contains only
+invented demonstration names, roll numbers, school details, and marks; it has
+no source-result details.
+
 Question answering supports candidate names or roll numbers, subject averages,
 highest/lowest subjects, subject grade counts and pass rates, overall grade
 distribution, result breakdown, performance bands, and top performers.

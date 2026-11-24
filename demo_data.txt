@@ -1,0 +1,22 @@
+DATE:- 15/04/2025   DEMONSTRATION EXAM RESULTS   REGION: DEMO-REGION   PAGE:- 1
+                         ***** (SCHOOL / ROLL NO WISE DEMO GAZETTE) *****
+
+SCHOOL : - 99999 DEMONSTRATION ACADEMY
+
+ROLL    F S NAME OF CANDIDATE                            SUBJECT CODES                    INT GRADES   RESULT
+                                                             SUB CD  SUB CD  SUB CD  SUB CD  SUB CD
+90000001   M DEMO CANDIDATE ALPHA                         301     041     042     043     044      A1 A1 A1 PASS
+                                                           095 A1 092 A1 088 A2 085 A2 091 A1
+90000002   F DEMO CANDIDATE BRAVO                          301     041     042     043     044      A1 A2 A1 PASS
+                                                           088 A2 090 A1 084 B1 086 B1 089 A2
+90000003   M DEMO CANDIDATE CHARLIE                        301     041     042     043     044      B1 B1 B1 PASS
+                                                           076 B1 080 B1 078 B2 082 B1 074 C1
+90000004   F DEMO CANDIDATE DELTA                          301     041     042     043     044      C1 C1 C1 PASS
+                                                           068 C1 072 C1 071 C2 065 C2 070 C1
+90000005   M DEMO CANDIDATE ECHO                           301     041     042     043     044      B1 B1 B2 COMP 042
+                                                           082 B1 076 C1 033 E 072 C1 079 B2
+90000006   F DEMO CANDIDATE FOXTROT                        301     041     042     043     044                  R.L.
+
+TOTAL CANDIDATES : 6   TOTAL PASS : 4   TOTAL COMPARTMENT : 1   OTHER : 1
+
+This is fictional demo data. All names, roll numbers, school details, and marks are invented.
