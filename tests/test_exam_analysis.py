@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 
 from exam_analysis import (
     answer_question,
@@ -9,12 +10,12 @@ from exam_analysis import (
 )
 
 
-GAZETTE = """DATE:- 30/07/2021 C.B.S.E. EXAM REGION: DELHI-EAST
-SCHOOL : - 27370 GOVT BOYS SCHOOL
+GAZETTE = """DATE:- 15/04/2025 DEMONSTRATION EXAM REGION: SAMPLE-REGION
+SCHOOL : - 99999 DEMONSTRATION ACADEMY
 ROLL    F S NAME OF CANDIDATE
-12345678   M ARUN KUMAR                  301     002     028     029     030      A1 A1 A1 PASS
+90000001   M DEMO STUDENT ONE             301     002     028     029     030      A1 A1 A1 PASS
                                             099 A1 080 A2 070 B1 060 C1 050 D1
-12345679   M DEV                           301     002     028     029     030      R.L.
+90000002   F DEMO STUDENT TWO             301     002     028     029     030      R.L.
 
 TOTAL CANDIDATES : 2
 """
@@ -25,14 +26,16 @@ class ExamAnalysisTests(unittest.TestCase):
         self.report = parse_cbse_gazette(GAZETTE)
 
     def test_parses_metadata_students_marks_and_withheld_result(self):
-        self.assertEqual(self.report.exam_date, "30/07/2021")
-        self.assertEqual(self.report.region, "DELHI-EAST")
-        self.assertEqual(self.report.school_code, "27370")
+        self.assertEqual(self.report.exam_date, "15/04/2025")
+        self.assertEqual(self.report.region, "SAMPLE-REGION")
+        self.assertEqual(self.report.school_code, "99999")
         self.assertEqual(len(self.report.students), 2)
         first, withheld = self.report.students
-        self.assertEqual(first.name, "ARUN KUMAR")
+        self.assertEqual(first.roll_no, "90000001")
+        self.assertEqual(first.name, "DEMO STUDENT ONE")
         self.assertEqual(first.best_five_percentage, 71.8)
         self.assertEqual(first.total_marks, 359)
+        self.assertEqual(withheld.roll_no, "90000002")
         self.assertEqual(withheld.result, "R.L.")
         self.assertIsNone(withheld.best_five_percentage)
 
@@ -52,8 +55,19 @@ class ExamAnalysisTests(unittest.TestCase):
         self.assertEqual(answer["subject"]["Mean_Marks"], 99)
         self.assertEqual(answer_question(self.report, "result breakdown")["results"]["PASS"], 1)
         best_performer = answer_question(self.report, "Who is the best performer?")
-        self.assertEqual(best_performer["students"][0].roll_no, "12345678")
+        self.assertEqual(best_performer["students"][0].roll_no, "90000001")
         self.assertEqual(sum(performance_bands(self.report).values()), 1)
+
+    def test_demo_text_file_contains_only_demo_records(self):
+        demo_path = Path(__file__).resolve().parents[1] / "demo_data.txt"
+        text = demo_path.read_text(encoding="utf-8")
+        report = parse_cbse_gazette(text)
+
+        self.assertEqual(report.school_name, "DEMONSTRATION ACADEMY")
+        self.assertEqual(report.region, "DEMO-REGION")
+        self.assertEqual(len(report.students), 6)
+        self.assertTrue(all(student.roll_no.startswith("900000") for student in report.students))
+        self.assertTrue(all(student.name.startswith("DEMO CANDIDATE ") for student in report.students))
 
 
 if __name__ == "__main__":
